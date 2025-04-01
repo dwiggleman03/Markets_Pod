@@ -1,0 +1,28 @@
+├── README.md                   # Project documentation
+├── requirements.txt            # Project dependencies
+├── config.py                   # Configuration settings
+├── main.py                     # Main execution script
+├── src/
+│   ├── __init__.py              
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── wrds_connector.py   # WRDS API integration
+│   │   ├── data_loader.py      # Data loading functions
+│   │   └── data_cleaner.py     # Data preprocessing
+│   ├── analysis/
+│   │   ├── __init__.py
+│   │   ├── security_analysis.py   # Security-level metrics
+│   │   ├── portfolio_generator.py # Portfolio construction
+│   │   └── portfolio_metrics.py   # Portfolio metrics calculation
+│   ├── statistics/
+│   │   ├── __init__.py
+│   │   ├── statistical_analysis.py # Regression analysis
+│   │   └── hypothesis_testing.py   # t-tests and F-tests
+│   └── visualization/
+│       ├── __init__.py
+│       └── visualizations.py      # Plotting functions
+└── tests/                      # Unit tests
+    ├── __init__.py
+    ├── test_data.py
+    ├── test_analysis.py
+    └── test_statistics.py
