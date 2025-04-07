@@ -1,28 +1,41 @@
-├── README.md                   # Project documentation
-├── requirements.txt            # Project dependencies
-├── config.py                   # Configuration settings
-├── main.py                     # Main execution script
-├── src/
-│   ├── __init__.py              
-│   ├── data/
-│   │   ├── __init__.py
-│   │   ├── wrds_connector.py   # WRDS API integration
-│   │   ├── data_loader.py      # Data loading functions
-│   │   └── data_cleaner.py     # Data preprocessing
-│   ├── analysis/
-│   │   ├── __init__.py
-│   │   ├── security_analysis.py   # Security-level metrics
-│   │   ├── portfolio_generator.py # Portfolio construction
-│   │   └── portfolio_metrics.py   # Portfolio metrics calculation
-│   ├── statistics/
-│   │   ├── __init__.py
-│   │   ├── statistical_analysis.py # Regression analysis
-│   │   └── hypothesis_testing.py   # t-tests and F-tests
-│   └── visualization/
-│       ├── __init__.py
-│       └── visualizations.py      # Plotting functions
-└── tests/                      # Unit tests
-    ├── __init__.py
-    ├── test_data.py
-    ├── test_analysis.py
-    └── test_statistics.py
+Adjust Columns: If your column names are different, change DATE_COLUMN, PERMNO_COLUMN, RETURN_COLUMN, and SHRCD_COLUMN accordingly.
+
+Set Date Range: Modify START_DATE and END_DATE to define the period you want to analyze. Make sure your data covers this range.
+
+Check Stock Codes: Verify that COMMON_STOCK_CODES = [10, 11] are appropriate for your dataset (these are standard for CRSP common stocks). If you don't have or need this filter, you might need to comment out the filtering step (handle the KeyError appropriately).
+
+Adjust Simulation Parameters: You can change MAX_PORTFOLIO_SIZE and NUM_SIMULATIONS. Higher NUM_SIMULATIONS gives smoother results but takes longer.
+
+
+
+The goal is to:
+
+Load and prepare stock return data.
+
+Simulate building portfolios of increasing size (e.g., 1 to 40 stocks).
+
+For each portfolio size, randomly select stocks multiple times.
+
+Calculate the standard deviation of returns for each simulated portfolio.
+
+Average the standard deviations for each portfolio size.
+
+Plot the average standard deviation against portfolio size to show the reduction in dispersion (risk).
+
+Fit the hyperbolic curve Y = B*(1/X) + A to the results, where Y is average standard deviation, X is portfolio size, and A is the estimated systematic risk.
+
+
+
+Assumptions based on the paper and typical data:
+
+We'll use the RET column for returns. We assume this is the total return (including dividends) for the period ending on date.
+
+We'll filter for common stocks (like SHRCD 10 or 11 in CRSP data).
+
+We'll select securities that have a complete return history over the chosen analysis period.
+
+Portfolios are equally weighted.
+
+Sampling is done without replacement within each simulation run.
+
+The paper used the standard deviation of the logarithms of the value relatives. The value relative is 1 + RET. So we will calculate np.log(1 + portfolio_return) for each period and then find the standard deviation of that time series.
